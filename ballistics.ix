@@ -1,10 +1,10 @@
 (function display (join "\n" (map @(join " ") grid)))
-(function create-grid l (var grid (repeat (repeat " " l) l)) (display))
+(function create-grid x y (var grid (repeat (repeat " " x) y)) (display))
 (function set-point x y sym (var! grid @(set-at [(- (dec (len grid)) (round y)) x] sym)))
 (function plot fun sym (map #(set-point % (fun %) sym) (range (len grid))) (display))
 
 (function game-start
-    (create-grid 20)
+    (create-grid 20 50)
     (set-point (rand-int 20) (rand-int 20) "T")
     (var bullet 97)
     (display))
