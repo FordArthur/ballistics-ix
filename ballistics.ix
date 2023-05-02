@@ -5,7 +5,7 @@
 
 (function game-start
     (create-grid 33 15)
-    (set-point (rand-int 50) (rand-int 20) "T")
+    (set-point (rand-int 33) (rand-int 15) "T")
     (var bullet 97)
     (display))
 
