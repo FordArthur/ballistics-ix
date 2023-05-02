@@ -1,7 +1,7 @@
 (function display (join "\n" (map @(join " ") grid)))
 (function create-grid x y (var grid (repeat (repeat " " x) y)) (display))
-(function set-point x y sym (var! grid @(set-at [(- (dec (len grid)) (round y)) x] sym)))
-(function plot fun sym (map #(set-point % (fun %) sym) (range (len grid))) (display))
+(function set-point x y sym (var! grid @(set-at [(- (dec (len (0 grid))) (round y)) x] sym)))
+(function plot fun sym (map #(set-point % (fun %) sym) (range (len (0 grid)))) (display))
 
 (function game-start
     (create-grid 33 15)
@@ -28,3 +28,4 @@
   (match command
          "new"        (game-start)
          "shoot"      (shoot (to-num vel) (to-num angl))))
+         
