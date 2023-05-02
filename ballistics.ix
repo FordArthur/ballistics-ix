@@ -4,7 +4,7 @@
 (function plot fun sym (map #(set-point % (fun %) sym) (range (len grid))) (display))
 
 (function game-start
-    (create-grid 20 50)
+    (create-grid 50 20)
     (set-point (rand-int 20) (rand-int 20) "T")
     (var bullet 97)
     (display))
