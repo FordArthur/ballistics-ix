@@ -3,9 +3,9 @@
 (function set-point x y sym (var! grid @(set-at [(- (dec (len grid)) (round y)) x] sym)))
 (function plot fun sym (map #(set-point % (fun %) sym) (range (len (0 grid)))) (display))
 
-(function game-start
-    (create-grid 33 15)
-    (set-point (rand-int 33) (rand-int 15) "T")
+(function game-start x-len y-len
+    (create-grid x-len y-len)
+    (set-point (rand-int x-len) (rand-int x-len) "T")
     (var bullet 97)
     (display))
 
@@ -26,6 +26,5 @@
 (function handler contents
   (let [command vel angl] (split " " contents))
   (match command
-         "new"        (game-start)
+         "new"        (game-start (rand-int 10 33) (rand-int 10 15))
          "shoot"      (shoot (to-num vel) (to-num angl))))
-         
