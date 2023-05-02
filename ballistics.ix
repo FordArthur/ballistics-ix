@@ -5,7 +5,7 @@
 
 (function game-start
     (create-grid 20)
-    (set-at (rand-int 10 20) (rand-int 0 7) "T")
+    (set-point (rand-int 10 20) (rand-int 0 7) "T")
     (var bullet 97))
 
 (function parabolic-y-vel u a
