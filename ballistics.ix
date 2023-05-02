@@ -1,0 +1,29 @@
+(function display (join "\n" (map @(join " ") grid)))
+(function create-grid l (var grid (repeat (repeat " " l) l)) (display))
+(function set-point x y sym (var! grid @(set-at [(- (dec (len grid)) (round y)) x] sym)))
+(function plot fun sym (map #(set-point % (fun %) sym) (range (len grid))) (display))
+
+(function game-start
+    (create-grid 20)
+    (set-at (rand-int 10 20) (rand-int 0 7) "T")
+    (var bullet 97))
+
+(function parabolic-y-vel u a
+  (* u (sin (* a (/ PI 180)))))
+(function parabolic-x-vel u a
+  (* u (cos (* a (/ PI 180)))))
+(function parabolic-y velocity angle gravity time
+  (- (* (parabolic-y-vel velocity angle) time) (* 0.5 gravity (** time 2))))
+(function parabolic-throw velocity angle gravity x-coord
+  (parabolic-y velocity angle gravity (/ x-coord (parabolic-x-vel velocity angle))))
+
+(function shoot vel angl
+    (plot @(parabolic-throw vel angl 9.81) (char-code bullet))
+    (var! bullet inc)
+    (if ("T" (flatten grid)) (str (display) "\nMiss!") (str (display) "\nYou win!")))
+
+(function handler contents
+  (let [command vel angl] (-> contents (split " ") #[(0 %) (join " " (skip 1 %))]))
+  (match command
+         "new"        (game-start)
+         "shoot"      (shoot (to-num vel) (to-num angl))))
