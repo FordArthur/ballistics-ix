@@ -21,7 +21,7 @@
 (function shoot vel angl
     (plot @(parabolic-throw vel angl 9.81) (char-code bullet))
     (var! bullet inc)
-    (if ("T" (flatten grid)) (str (display) "\nMiss!") (str (display) "\nYou win!")))
+    (if ((flatten grid) "T") (str (display) "\nMiss!") (str (display) "\nYou win!")))
 
 (function handler contents
   (let [command vel angl] (split " " contents))
