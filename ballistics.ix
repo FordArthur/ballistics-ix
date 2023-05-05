@@ -25,7 +25,8 @@
     (if ((flatten grid) "T") (str (display) "\nMiss!") (str (display) "\nYou win!")))
 
 (function handler contents
-  (let [command vel angl] (split " " contents))
+  (let [command vel angl rest] (-> contents (split " ") (adj 0 1 (comp (skip 2) (join " ")))))
   (match command
          "new"        (game-start (rand-int 10 33) (rand-int 10 15))
-         "shoot"      (shoot (to-num vel) (to-num angl))))
+         "shoot"      (shoot (to-num vel) (to-num angl)))
+         "run"        (eval ))
