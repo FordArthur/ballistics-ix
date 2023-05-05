@@ -19,7 +19,7 @@
   (parabolic-y velocity angle gravity (/ x-coord (parabolic-x-vel velocity angle))))
 
 (function shoot vel angl
-    (var! grid map (remove (char-code (- grid 2))))
+    (var! grid map (remove (char-code (- bullet 2))))
     (plot @(parabolic-throw vel angl 9.81) (char-code bullet))
     (var! bullet inc)
     (if ((flatten grid) "T") (str (display) "\nMiss!") (str (display) "\nYou win!")))
@@ -29,3 +29,4 @@
   (match command
          "new"        (game-start (rand-int 10 33) (rand-int 10 15))
          "shoot"      (shoot (to-num vel) (to-num angl))))
+        
