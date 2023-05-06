@@ -10,6 +10,7 @@
     (set-point (rand-int x-len) (rand-int x-len) "T")
     (var bullet 97)
     (display))
+    
 
 (function parabolic-y-vel u a
   (* u (sin (* a (/ PI 180)))))
@@ -27,9 +28,9 @@
     (if ((flatten grid) "T") (str (display) "\nMiss!") (str (display) "\nYou win!")))
 
 (function handler contents
-  (let [command vel angl rest] (-> contents (split " ") (juxt 0 1 (comp (skip 2) (join " ")))))
+  (let [command vel angl rest] (-> contents (split " ") (juxt 0 1 2 (comp (skip 3) (join " ")))))
   (print [command vel angl rest])
   (match command
-         "new"        (game-start 33 15)
+         "new"        (game-start 32 15)
          "shoot"      (shoot (to-num vel) (to-num angl))
          "run"        (eval (strn vel " " angl " " rest))))
