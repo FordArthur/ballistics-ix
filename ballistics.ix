@@ -1,6 +1,8 @@
 (function display (join "\n" (map @(join " ") grid)))
 (function create-grid x y (var grid (repeat (repeat " " x) y)) (display))
-(function set-point x y sym (var! grid #(if (!= "W" (-> grid x y)) (set-at [(- (dec (len grid)) (round y)) x] sym %) (return :wall))))
+(function set-point x y sym 
+  (let y-norm (- (dec (len grid)) (round y)))
+  (var! grid #(if (!= "W" (-> grid x y-norm)) (set-at [y-norm x] sym %) (return :wall))))
 (function plot fun sym (map #(when (= (set-point % (fun %) sym) :wall) (return)) (range (len (0 grid)))) (display))
 
 (function game-start x-len y-len
@@ -30,3 +32,4 @@
          "new"        (game-start (rand-int 10 33) (rand-int 10 15))
          "shoot"      (shoot (to-num vel) (to-num angl))
          "run"        (eval (strn vel " " angl " " rest))))
+       
