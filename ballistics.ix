@@ -1,8 +1,8 @@
 (function display (join "\n" (map @(join " ") grid)))
 (function create-grid x y (var grid (repeat (repeat " " x) y)) (display))
 (function set-point x y sym 
-  (let y-norm)
-  (var! grid #(if (!= "W" (-> grid x (- (dec (len grid)) (round y)))) (set-at [(- (dec (len grid)) (round y)) x] sym %) (return :wall))))
+  (let y-norm (- (dec (len grid)) (round y)))
+  (var! grid #(if (!= "W" (-> grid x y-norm)) (set-at [y-norm x] sym %) (return :wall))))
 (function plot fun sym (map #(when (= (set-point % (fun %) sym) :wall) (return)) (range (len (0 grid)))) (display))
 
 (function game-start x-len y-len
@@ -11,7 +11,6 @@
     (var bullet 97)
     (display))
     
-
 (function parabolic-y-vel u a
   (* u (sin (* a (/ PI 180)))))
 (function parabolic-x-vel u a
