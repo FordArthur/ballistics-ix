@@ -4,7 +4,7 @@
   (let y-norm (- (dec (len grid)) (round y)))
   (var! grid (set-at [y-norm x] sym)))
 (function plot fun sym
-    (let traj (map (juxt val fun) (range (len grid)))
+    (var traj (map (juxt val fun) (range (len grid)))
          traj-wall (take-until (fn [x y] (= "W" (-> grid x y))) traj))
     (map (fn [x y] (set-point x y sym)) traj-wall)
     (display))
