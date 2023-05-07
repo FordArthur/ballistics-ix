@@ -5,7 +5,7 @@
   (var! grid (set-at [y-norm x] sym)))
 (function plot fun sym
     (var traj (map (juxt val fun) (range (len grid)))
-         traj-wall (take-until (fn [x y] (= "W" (-> grid x y))) traj))
+         traj-wall (take-until (fn [x y] (= "W" (-> grid x (- (dec (len grid)) (round y))))) traj))
     (map (fn [x y] (set-point x y sym)) traj-wall)
     (display))
 
