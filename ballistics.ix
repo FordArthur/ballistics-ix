@@ -2,8 +2,11 @@
 (function create-grid x y (var grid (repeat (repeat " " x) y)) (display))
 (function set-point x y sym 
   (let y-norm (- (dec (len grid)) (round y)))
-  (var! grid #(if (!= "W" (-> grid x y-norm)) (set-at [y-norm x] sym %) (return :wall))))
-(function plot fun sym (map #(when (= (set-point % (fun %) sym) :wall) (return)) (range (len (0 grid)))) (display))
+  (var! grid (set-at [y-norm x] sym)))
+(function plot fun sym
+    (let traj (map (juxt val fun) (range (len grid)))
+         traj-wall (take-until (fn [x y] (= "W" (-> grid x y))) traj))
+    (map (fn [x y] (set-point x y sym)) traj-wall))
 
 (function game-start x-len y-len
     (create-grid x-len y-len)
