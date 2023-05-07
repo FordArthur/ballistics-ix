@@ -6,14 +6,15 @@
 (function plot fun sym
     (let traj (map (juxt val fun) (range (len grid)))
          traj-wall (take-until (fn [x y] (= "W" (-> grid x y))) traj))
-    (map (fn [x y] (set-point x y sym)) traj-wall))
+    (map (fn [x y] (set-point x y sym)) traj-wall)
+    (display))
 
 (function game-start x-len y-len
     (create-grid x-len y-len)
     (set-point (rand-int x-len) (rand-int x-len) "T")
     (var bullet 97)
     (display))
-    
+
 (function parabolic-y-vel u a
   (* u (sin (* a (/ PI 180)))))
 (function parabolic-x-vel u a
