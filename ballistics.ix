@@ -1,11 +1,11 @@
 (function display (join "\n" (map @(join " ") grid)))
 (function create-grid x y (var grid (repeat (repeat " " x) y)) (display))
 (function set-point x y sym 
-  (let y-norm (- (dec (len grid)) (round y)))
+  (let y-norm (- (dec (len grid)) y))
   (var! grid (set-at [y-norm x] sym)))
 (function plot fun sym
-    (var traj (map (juxt val fun) (range (len grid)))
-         traj-wall (take-until (fn [x y] (= "W" (-> grid x (- (dec (len grid)) (round y))))) traj))
+    (var traj (map (juxt val (comp fun round)) (range (len grid)))
+         traj-wall (take-until (fn [x y] (= "W" (-> grid x (- (dec (len grid)) y)))) traj))
     (map (fn [x y] (set-point x y sym)) traj-wall)
     (display))
 
