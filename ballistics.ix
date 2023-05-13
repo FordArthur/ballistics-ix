@@ -9,11 +9,11 @@
     (map (fn [x y] (set-point x y sym)) traj-wall)
     (display))
 
-(function game-start x-len y-len min-wall-len max-wall-len min-wall-spawn max-wall spawn
+(function game-start x-len y-len min-wall-len max-wall-len
     (create-grid x-len y-len)
     (let [rnd-tx rnd-ty] (repeat #(rand-int x-len) 2))
     (set-point rnd-tx rnd-ty "T")
-    (xmap (fn y x (set-point x y "W")) (repeat (dec rnd-tx) (rand-int 4 8)))
+    (xmap (fn y x (set-point x y "W")) (repeat (dec rnd-tx) (rand-int min-wall-len max-wall-len)))
     (var bullet 97)
     (display))
 
@@ -36,6 +36,6 @@
   (let [command vel angl rest] (-> contents (split " ") (juxt 0 1 2 (comp (skip 3) (join " ")))))
   (print [command vel angl rest])
   (match command
-         "new"        (game-start 32 15)
+         "new"        (game-start 32 15 4 8)
          "shoot"      (shoot (to-num vel) (to-num angl))
          "run"        (eval (strn vel " " angl " " rest))))
