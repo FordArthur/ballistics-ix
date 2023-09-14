@@ -34,7 +34,6 @@
 
 (function handler contents
   (let [command vel angl rest] (-> contents (split " ") (juxt 0 1 2 (comp (skip 3) (join " ")))))
-  (print [command vel angl rest])
   (match command
          "new"        (game-start 32 15 4 8)
          "shoot"      (shoot (to-num vel) (to-num angl))
